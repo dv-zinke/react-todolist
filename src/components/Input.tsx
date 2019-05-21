@@ -1,13 +1,19 @@
 import * as React from 'react';
 import './Input.css'
 
-class Input extends React.Component {
+interface Props {
+    changeEvent(e:React.FormEvent<HTMLInputElement>): void;
+    clickEvent():void
+  }
+  
+class Input extends React.Component<Props> {
     public render() {
+        const {changeEvent, clickEvent} = this.props;
         return (
             <div className="input_Container">
-                <input type="text" placeholder='할일을적어주세요'>
+                <input type="text" placeholder='할일을적어주세요' onChange={changeEvent}>
                 </input>
-                <button>확인</button>
+                <button onClick={clickEvent}>확인</button>
             </div>
         );
     }
