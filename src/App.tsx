@@ -1,19 +1,20 @@
 import * as React from 'react';
 import './App.css';
-
-import logo from './logo.svg';
+import Input from "./components/Input";
+import Header from "./components/Header";
 
 class App extends React.Component {
+  state ={
+   inputValue: ''
+  };
+  InputOnChange = () =>{
+
+  };
   public render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React23232323232</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+         <Header/>
+         <Input />
       </div>
     );
   }
