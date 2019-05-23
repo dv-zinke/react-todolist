@@ -3,7 +3,8 @@ import './Input.css'
 
 interface Props {
     changeEvent(e:React.FormEvent<HTMLInputElement>): void;
-    clickEvent():void
+    clickEvent():void,
+   
   }
   
 class Input extends React.Component<Props> {
@@ -11,7 +12,7 @@ class Input extends React.Component<Props> {
         const {changeEvent, clickEvent} = this.props;
         return (
             <div className="input_Container">
-                <input type="text" placeholder='할일을적어주세요' onChange={changeEvent}>
+                <input  type="text" placeholder='할일을적어주세요' onChange={changeEvent}>
                 </input>
                 <button onClick={clickEvent}>확인</button>
             </div>
