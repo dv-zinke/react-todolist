@@ -53,14 +53,29 @@ class App extends React.Component {
      * 완료클릭이벤트
      */
   private completeClick = (e:React.FormEvent<HTMLButtonElement>) =>{
-    //  console.log( e.currentTarget.parentNode)
-    //  const parent:any= e.currentTarget.parentNode;
+     const {todolist} = this.state;
 
-    //  this.setState({
-    //   todolist:this.state.todolist.map 
-    // })
-     
-   //  const index = this.state.todolist.findIndex(todo =>todo.id === e)
+      const parent:any= e.currentTarget.parentNode;
+
+     const index = todolist.findIndex((todo:any) =>{return todo.value === parent.children[0].innerText})
+     const selectTodolist:any = todolist[index];
+
+     const nextTodolist:any = [...todolist];
+     if(selectTodolist.complete) {
+      e.currentTarget.innerHTML = '완료';
+     }else {
+      e.currentTarget.innerHTML = '취소';
+     }
+
+     nextTodolist[index] = {
+       ...selectTodolist,
+       complete: !selectTodolist.complete
+     };
+
+     this.setState({
+       todolist:nextTodolist
+     })
+       
   };
 
 
