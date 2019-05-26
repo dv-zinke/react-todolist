@@ -7,7 +7,6 @@ import Todolist from './components/Todolist';
 
 
 class App extends React.Component {
-  private input:any;
   state ={
    number:0, 
    inputValue: '',
@@ -29,7 +28,7 @@ class App extends React.Component {
     const {number, inputValue, todolist} = this.state;
     
     if(inputValue === ''){
-        
+        this.refInput.focus();
         return alert("입력하지않으셨습니다");
     }
     this.setState({
@@ -37,7 +36,9 @@ class App extends React.Component {
       number: number+1,
       todolist:[...todolist, {id:number, value:inputValue, complete:false}]
     });
-    console.log(this.input)
+
+    this.refInput.value = '';
+  
   };
     /**
      * 삭제클릭이벤트
@@ -54,7 +55,7 @@ class App extends React.Component {
      */
   private completeClick = (e:React.FormEvent<HTMLButtonElement>) =>{
      const {todolist} = this.state;
-
+   
       const parent:any= e.currentTarget.parentNode;
 
      const index = todolist.findIndex((todo:any) =>{return todo.value === parent.children[0].innerText})
@@ -77,15 +78,18 @@ class App extends React.Component {
      })
        
   };
-
-
+  private refInput:HTMLInputElement;
+  private InputRefEvent = (input:HTMLInputElement) =>{
+    this.refInput = input;
+  }
+  
   public render() {
     const todolistMake = () =>this.state.todolist.map((todo:any)=>{return <Todolist key={todo.id} complete={todo.complete} todo={todo.value} deleteClick={this.deleteClick} completeClick={this.completeClick}/>});
     
     return (
       <div className="App">
          <Header/>
-         <Input ref={(ref)=>this.input=ref}changeEvent={this.inputOnChange} clickEvent={this.buttonClick}/>
+         <Input refEvent={this.InputRefEvent} changeEvent={this.inputOnChange} clickEvent={this.buttonClick}/>
          <div className="todolist_container">
             {todolistMake()}
          </div>
