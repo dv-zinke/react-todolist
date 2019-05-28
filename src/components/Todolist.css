@@ -2,3 +2,16 @@
 
     text-decoration: line-through;
 }
+
+.todolist_container{
+    width:500px;
+    margin: 0 auto;
+
+}
+.todolist_container > div{
+    margin-top: 10px;
+}
+.todolist_container .value{
+    width: 76%;
+    display:inline-block;
+}

@@ -14,15 +14,20 @@ class Todolist extends React.Component<Props> {
     const { todo, deleteClick, completeClick, complete } = this.props
     return (
       <div className="todolist">
-        {complete ? (
-          <div className="value complete">{todo}</div>
-        ) : (
-          <div className="value">{todo}</div>
-        )}
-        <button onClick={completeClick}>완료</button>
+        <div>
+        {complete ?
+         <div className="value complete">{todo}</div>: 
+        <div className="value">{todo}</div>
+        }
+        {complete ?
+          <Button type="danger" ghost onClick={completeClick}>취소</Button>:
+          <Button type="primary" ghost onClick={completeClick}>완료</Button>
+        }
+        
         <Button type="danger" className="deleteBtn" onClick={deleteClick}>
           삭제
         </Button>
+        </div>
       </div>
     )
   }

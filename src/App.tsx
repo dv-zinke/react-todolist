@@ -63,11 +63,7 @@ class App extends React.Component {
     const selectTodolist: any = todolist[index]
 
     const nextTodolist: any = [...todolist]
-    if (selectTodolist.complete) {
-      e.currentTarget.innerHTML = "완료"
-    } else {
-      e.currentTarget.innerHTML = "취소"
-    }
+   
 
     nextTodolist[index] = {
       ...selectTodolist,
