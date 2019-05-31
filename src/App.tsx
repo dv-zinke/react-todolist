@@ -3,12 +3,29 @@ import "./App.css"
 import TodoInput from "./components/TodoInput"
 import Header from "./components/Header"
 import Todolist from "./components/Todolist"
-
+import { firestore } from "./backend/Firebase"
 class App extends React.Component {
   state = {
-    number: 0,
     inputValue: "",
     todolist: []
+  }
+  componentDidMount() {
+    firestore
+      .collection("todolist")
+      .get()
+      .then(docs => {
+        docs.forEach(doc => {
+          this.setState({
+            todolist: [
+              ...this.state.todolist,
+              { value: doc.data().value, complete: doc.data().complete, id: doc.id }
+            ]
+          })
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
   /**
    * 인풋 체인지이벤트
@@ -23,16 +40,29 @@ class App extends React.Component {
    * 인풋클릭이벤트
    */
   private buttonClick = () => {
-    const { number, inputValue, todolist } = this.state
+    const { inputValue, todolist } = this.state
 
     if (inputValue === "") {
       this.refInput.focus()
       return alert("입력하지않으셨습니다")
     }
+    let duplicate = false
+
+    todolist.map((todolist: any, index: number) => {
+      if (todolist.value === inputValue) duplicate = true
+    })
+
+    if (duplicate) return alert("동일한 list가 있습니다.")
+
+    firestore
+      .collection("todolist")
+      .add({ value: this.state.inputValue, complete: false })
+      .then(() => {
+        console.log("add성공")
+      })
     this.setState({
       inputValue: "",
-      number: number + 1,
-      todolist: [...todolist, { id: number, value: inputValue, complete: false }]
+      todolist: [...todolist, { value: inputValue, complete: false }]
     })
 
     this.refInput.state.value = ""
@@ -43,11 +73,22 @@ class App extends React.Component {
   private deleteClick = (e: React.FormEvent<HTMLButtonElement>) => {
     const { todolist } = this.state
     const parent: any = e.currentTarget.parentNode
-    this.setState({
-      todolist: todolist.filter((todo: any) => {
-        return todo.value !== parent.children[0].innerText
-      })
+
+    const selectData: any = todolist.filter((todo: any) => {
+      return todo.value === parent.children[0].innerText
     })
+
+    firestore
+      .collection("todolist")
+      .doc(selectData[0].id)
+      .delete()
+      .then(() => {
+        this.setState({
+          todolist: todolist.filter((todo: any) => {
+            return todo.value !== parent.children[0].innerText
+          })
+        })
+      })
   }
   /**
    * 완료클릭이벤트
@@ -63,7 +104,6 @@ class App extends React.Component {
     const selectTodolist: any = todolist[index]
 
     const nextTodolist: any = [...todolist]
-   
 
     nextTodolist[index] = {
       ...selectTodolist,
@@ -81,10 +121,10 @@ class App extends React.Component {
 
   public render() {
     const todolistMake = () =>
-      this.state.todolist.map((todo: any) => {
+      this.state.todolist.map((todo: any, idx: number) => {
         return (
           <Todolist
-            key={todo.id}
+            key={idx}
             complete={todo.complete}
             todo={todo.value}
             deleteClick={this.deleteClick}
