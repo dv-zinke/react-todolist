@@ -65,8 +65,10 @@ class App extends React.Component {
           todolist: [...todolist, { value: inputValue, complete: false, id:docs.id}]
         })
     
-        this.refInput.state.value = "";
+        
       })
+
+      this.refInput.state.value = "";
    
   }
   /**
