@@ -6,8 +6,4 @@ demo
 
 https://todolist-reacttypescript.firebaseapp.com/
 
-할것
-
-파이어베이스 사용해서 데이터저장
-material ui 써서 스타일링
-기타 이슈사항 
+Typescript, React, ant Design, firebase 로 이용한 Todolist 
