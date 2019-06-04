@@ -103,18 +103,25 @@ class App extends React.Component {
     const index = todolist.findIndex((todo: any) => {
       return todo.value === parent.children[0].innerText
     })
-    const selectTodolist: any = todolist[index]
+    const selectTodolist: any = todolist[index];
+    console.log(selectTodolist)
+    firestore
+    .collection("todolist")
+    .doc(selectTodolist.id)
+    .update({complete:!selectTodolist.complete})
+    .then(() => {
+      const nextTodolist: any = [...todolist]
 
-    const nextTodolist: any = [...todolist]
-
-    nextTodolist[index] = {
-      ...selectTodolist,
-      complete: !selectTodolist.complete
-    }
-
-    this.setState({
-      todolist: nextTodolist
+      nextTodolist[index] = {
+        ...selectTodolist,
+        complete: !selectTodolist.complete
+      }
+  
+      this.setState({
+        todolist: nextTodolist
+      })
     })
+   
   }
   private refInput: any
   private InputRefEvent = (input: HTMLInputElement) => {
