@@ -1,0 +1,11 @@
+.header{
+    width:500px;
+    height: 200px;
+    background:skyblue;
+    color:white;
+    font-size:30px;
+    margin:auto;
+}
+.text {
+    padding-top:50px;
+}

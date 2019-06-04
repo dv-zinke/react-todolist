@@ -1,0 +1,18 @@
+@import '~antd/dist/antd.css';
+
+.input_Container {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.input_Container input {
+    width: 80%;
+    height: 50px;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.input_Container button {
+    width: 20%;
+    height: 50px;
+}
