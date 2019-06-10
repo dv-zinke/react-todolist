@@ -2,8 +2,13 @@
 
 
 
-demo
+## DemoPage
 
-https://todolist-reacttypescript.firebaseapp.com/
+[Demo](https://todolist-reacttypescript.firebaseapp.com/)
 
-Typescript, React, ant Design, firebase 로 이용한 Todolist 
+
+## 쓴 기술들
+- Typescript
+- React 
+- ant Design 
+- firebase
